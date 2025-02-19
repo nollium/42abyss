@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Copyright © 2024 42abyss. All Rights Reserved. <3 -->
+
+
+<head>
+
+  <!-- utf-8 -->
+  <meta charset="utf-8">
+
+  <!-- indexing -->
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="42abyss, 42, abyss, network, next-generation, technology">
+
+
+
+  <!-- mode -->
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0.0, width=device-width, height=device-height">
+
+  <!-- name -->
+  <title>42abyss</title>
+
+  <!-- icon -->
+  <link rel="icon" type="image/jpeg" href="http://localhost/favicon.png">
+  <link rel="shortcut icon" type="image/jpeg" href="http://localhost/favicon.png">
+  <link rel="apple-touch-icon" type="image/jpeg" href="http://localhost/favicon.png">
+
+  <!-- description -->
+  <meta name="description" content="Network powered by next-generation technology from a 42paris student.">
+
+  <!-- url -->
+  <link rel="canonical" href="http://localhost">
+
+
+
+  <!-- og: mode -->
+  <meta property="og:type" content="website">
+
+  <!-- og: name -->
+  <meta property="og:title" content="42abyss">
+
+  <!-- og: icon -->
+  <meta property="og:image" content="http://localhost/favicon.png">
+
+  <!-- og: description -->
+  <meta property="og:description" content="Network powered by next-generation technology from a 42paris student.">
+
+  <!-- og: url -->l
+  <meta property="og:url" content="http://localhost">
+
+
+
+  <!-- twitter: mode -->
+  <meta name="twitter:card" content="summary">
+
+  <!-- twitter: name -->
+  <meta name="twitter:title" content="42abyss">
+
+  <!-- twitter: icon -->
+  <meta name="twitter:image" content="http://localhost/favicon.png">
+
+  <!-- twitter: description -->
+  <meta name="twitter:description" content="Network powered by next-generation technology from a 42paris student.">
+
+  <!-- twitter: url -->
+  <meta name="twitter:url" content="http://localhost">
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+
+    /* schema: mode */
+    "@type": "WebSite",
+
+    /* schema: name */
+    "name": "42abyss",
+
+    /* schema: icon */
+    "logo": "http://localhost/favicon.png",
+
+    /* schema: description */
+    "description": "Network powered by next-generation technology from a 42paris student.",
+
+    /* schema: url */
+    "url": "http://localhost"
+  }
+  </script>
+
+<!--/head-->
+
+
+
+
+
+<style>
+
+  *{
+    display: none;
+    user-select: none;
+  }
+
+  html, body{
+    display: block;
+
+    background: #000F;
+
+    font-family: monospace;
+    font-size: 1rem;
+
+    z-index: -1;
+  }
+
+  canvas{
+    display: block;
+
+    top: 0;
+    left: 0;
+
+    padding: 0;
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    position: absolute;
+
+    z-index: 0;
+  }
+
+  input{
+    display: block;
+
+    background: #0000;
+    color: #000F;
+
+    border: none;
+    outline: none;
+
+    position: fixed;
+
+    box-sizing: border-box;
+
+    z-index: 1;
+  }
+
+  #version{
+    display: block;
+
+    color: #F00F;
+
+    top: 100%;
+    left: 0%;
+
+    transform: translate(1rem, -2rem);
+
+    position: fixed;
+
+    z-index: 1;
+  }
+
+  .copyright{
+    display: block;
+
+    top: 100%;
+    right: 0%;
+
+    transform: translate(-3px, -45px);
+
+    position: fixed;
+
+    z-index: 1;
+  }
+
+  #message{
+    display: block;
+
+    color: #F00F;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    position: fixed;
+
+    z-index: 1;
+  }
+
+  .loading{
+    display: block;
+
+    background: #0008;
+
+    width: 0;
+    height: 16px;
+
+    border-radius: 8px;
+
+    filter: invert(100%);
+  }
+
+</style>
+
+
+
+
+
+<!--head-->
+</head>
+
+
+
+
+
+<body>
+
+  <canvas id="canvas">
+  </canvas>
+
+  <div id="version">
+    0.0.0
+  </div>
+
+  <div id="message">
+    <div class="loading">
+      <div class="loading"></div>
+    </div>
+  </div>
+
+  <noscript>
+    JavaScript: is not supported.
+  </noscript>
+
+  <a class="copyright" title="Site déposé sur CopyrightFrance.com" href="http://www.copyrightfrance.com/certificat-depot-copyright-france-65FW1QB-lgus.htm" target="_blank" rel="external">
+    <img style="display: block; border: 0;" src="data:image/gif;base64,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" alt="CopyrightFrance.com">
+  </a>
+
+<!--/body-->
+
+
+
+
+
+<script>
+
+  var _id = [];
+
+  var _argument = [];
+  var _return = [];
+
+
+
+  const _canvas = document.getElementById("canvas");
+  const _version = document.getElementById("version");
+  const _message = document.getElementById("message");
+  const _loading = document.getElementsByClassName("loading");
+
+  if(!window.WebAssembly || !window.WebGL2RenderingContext){
+    _message.innerHTML = "WebAssembly or WebGL: is not supported.";
+    throw new Error("WebAssembly or WebGL: is not supported.");
+  }
+
+
+
+  const importObject = {
+    env: {
+
+      memory: new WebAssembly.Memory({ initial: 256 }),
+
+      function: function(data, length){
+        const number = _id.length;
+
+        _id[number] = new Function(_id[4](_id[0](data, length)));
+
+        return number;
+      },
+
+      call: function(number){
+        _id[number]();
+      },
+
+      argument_utf8:  (data, index) => {_argument[index] = data},
+      argument_utf16: (data, index) => {_argument[index] = data},
+      argument_utf32: (data, index) => {_argument[index] = data},
+      argument_float: (data, index) => {_argument[index] = data},
+
+      argument_utf8_ptr:  (data, length, index, utf) => {_argument[index] = utf ? _id[4](_id[0](data, length)) : _id[0](data, length)},
+      argument_utf16_ptr: (data, length, index, utf) => {_argument[index] = utf ? _id[5](_id[1](data, length)) : _id[1](data, length)},
+      argument_utf32_ptr: (data, length, index, utf) => {_argument[index] = utf ? _id[6](_id[2](data, length)) : _id[2](data, length)},
+      argument_float_ptr: (data, length, index) => {_argument[index] = _id[3](data, length)},
+
+      return_utf8:  (index) => {return _return[index]},
+      return_utf16: (index) => {return _return[index]},
+      return_utf32: (index) => {return _return[index]},
+      return_float: (index) => {return _return[index]},
+
+      return_utf8_ptr:  (data, index, utf) => {return _id[utf ? 7 : 10](_id[0](data, _return[index].length), index)},
+      return_utf16_ptr: (data, index, utf) => {return _id[utf ? 8 : 10](_id[1](data, _return[index].length), index)},
+      return_utf32_ptr: (data, index, utf) => {return _id[utf ? 9 : 10](_id[2](data, _return[index].length), index)},
+      return_float_ptr: (data, index) => {return _id[10](_id[3](data, _return[index].length), index)}
+
+    }
+  };
+
+
+
+  function run(module){
+
+    WebAssembly.instantiate(module, importObject)
+    .then(
+
+
+      function(response){
+
+        _id[0] = function(data, length){
+          return new Uint8Array(response.instance.exports.memory.buffer, data, length);
+        };
+
+        _id[1] = function(data, length){
+          return new Uint16Array(response.instance.exports.memory.buffer, data, length);
+        };
+
+        _id[2] = function(data, length){
+          return new Uint32Array(response.instance.exports.memory.buffer, data, length);
+        };
+
+        _id[3] = function(data, length){
+          return new Float32Array(response.instance.exports.memory.buffer, data, length / Float32Array.BYTES_PER_ELEMENT);
+        };
+
+        _id[4] = function(buffer){
+          return new TextDecoder("utf-8").decode(buffer);
+        };
+
+        _id[5] = function(buffer){
+          return new TextDecoder("utf-16").decode(buffer);
+        };
+
+        _id[6] = function(buffer){
+          return new TextDecoder("utf-32").decode(buffer);
+        };
+
+        _id[7] = function(buffer, index){
+          buffer.set(new TextEncoder("utf-8").encode(_return[index]));
+          return _return[index].length;
+        };
+
+        _id[8] = function(buffer, index){
+          buffer.set(new TextEncoder("utf-16").encode(_return[index]));
+          return _return[index].length;
+        };
+
+        _id[9] = function(buffer, index){
+          buffer.set(new TextEncoder("utf-32").encode(_return[index]));
+          return _return[index].length;
+        };
+
+        _id[10] = function(buffer, index){
+          for(var x = 0; x < _return[index].length; x += 1){
+            buffer[x] = _return[index][x];
+          }
+          return _return[index].length;
+        };
+
+        response.instance.exports._start();
+
+        const worker = new Worker("data:text/javascript," + "setInterval(" + "function()" + "%7B%0A" + "%20%20" + "self.postMessage(0)" + "%3B%0A" + "%7D%2C%20" + "1" + "%2F" + "60*1000" + ")" + "%3B");
+
+        worker.onmessage = function(){
+          const frame = window.requestAnimationFrame(
+            response.instance.exports._draw
+          );
+          window.cancelAnimationFrame(
+            response.instance.exports._loop(frame)
+          );
+        };
+
+      }
+
+
+    )
+    .catch(
+
+
+      function(error){
+
+        setTimeout(function(){
+          window.location.reload();
+        }, 5000);
+
+        _message.innerHTML = "An error haz okuued.";
+        throw new Error("An error haz okuued.");
+
+      }
+
+
+    );
+
+  }
+
+
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.responseType = "arraybuffer";
+
+
+  xhr.onerror = function(){
+
+    _loading[0].style.width = "0px";
+    _loading[1].style.width = "0px";
+
+    setTimeout(function(){
+      window.location.reload();
+    }, 5000);
+
+    _message.innerHTML = "XMLHttpRequest: error.";
+    throw new Error("XMLHttpRequest: error.");
+
+  };
+
+
+  xhr.onload = function(){
+
+    _loading[0].style.width = "0px";
+    _loading[1].style.width = "0px";
+
+    run(xhr.response);
+
+  };
+
+
+  xhr.onprogress = function(event){
+
+    var loaded = event.loaded;
+    if(!loaded){
+      loaded = 0;
+    }
+
+    _loading[0].style.width = "300px";
+    _loading[1].style.width = loaded/61250*100 + "%";
+
+  };
+
+
+  xhr.open("get", "./main.wasm", true);
+
+  xhr.send();
+
+</script>
+
+
+
+
+
+<!--body-->
+</body>
+
+
+
+
+
+</html>
